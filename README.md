@@ -36,7 +36,7 @@
 
 !["Description" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZSdescription.png?raw=true)
 
-**Emotecraft: Borrow Their Emote** — A client-side addon for [Emotecraft](https://modrinth.com/mod/emotecraft), that lets you borrow and join in on another player's emote.
+**Emotecraft: Borrow Their Emote** — A client-side addon for [Emotecraft](https://modrinth.com/mod/emotecraft), that lets you borrow another player's emote and play it together.
 
 Look at a player who is playing an emote and press `[Shift + RMB]` — you borrow it and start playing it too. Since you are crouched while holding Shift, the emote starts the moment you stand up.
 
