@@ -1,0 +1,94 @@
+import net.lopymine.utils.MossyUtils
+
+plugins {
+	id "net.lopymine.mossy-plugin-core" version "$mossy_plugin_version"
+}
+
+mossyDependencies {
+	minecraft = stonecutter.current.project.substring(stonecutter.current.project.indexOf("-") + 1)
+	lombok = prop("base.lombok_version")
+
+	fabricApi = prop("build.fabric_api")
+	fabricLoader = prop("build.fabric_loader")
+
+	forge = prop("build.forge")
+
+	neoForge = prop("build.neoforge")
+	parchment = prop("build.parchment")
+
+	additional {
+		// TIP: Don't use modImplementation, use mossyImplementation and etc.
+		//override("mossyCompileOnly", "yacl")
+		//disable("yacl")
+
+		// Emotecraft is added manually below (lean emotesAPI + archCommon, Fabric only),
+		// so stop Mossy from also auto-resolving "dep.emotecraft" as a full Modrinth mod.
+		disable("emotecraft")
+	}
+}
+
+mossyResources {
+	//expandFiles = ["file pattern"]
+	// Exposes ${mossylib_version} to the manifests so the mossylib dependency range tracks dep.mossylib.
+	customProperty("mossylib_version", MossyUtils.substringBefore(prop("dep.mossylib"), "+"))
+}
+
+// --- Emotecraft addon dependencies ---
+repositories {
+
+	mavenCentral()
+
+	maven { url = "https://maven.kosmx.dev/" }         // Emotecraft API (emotesAPI / archCommon / emotesExecutor)
+	maven { url = "https://repo.redlance.org/public" }  // Player Animation Library (PlayerAnimationLibCore)
+
+}
+
+dependencies {
+
+	// Emotecraft client API the addon compiles against. emotesAPI (ClientEmoteAPI) is present at
+	// every version. The emote-player / player-entity interfaces live in a different module AND
+	// under different class names depending on the Emotecraft generation:
+	//   * 2.4.x (MC 1.21.1): emotesExecutor, classes io.github.kosmx.emotes.executor.emotePlayer.*
+	//                        (IEmotePlayerEntity / IEmotePlayer)
+	//   * 2.5+ / 3.x (MC 1.21.4+): archCommon, classes io.github.kosmx.emotes.main.*
+	//                        (IPlayerEntity / EmotePlayer)
+	// archCommon has no 2.4.x build and emotesExecutor has no 2.5+ build, so we pick the artifact
+	// by version here; EmoteBorrower.java swaps the imports/types with Stonecutter to match. The
+	// (older) emotesMain module is an empty aggregator jar and must NOT be used. The real classes
+	// are provided at runtime by the installed Emotecraft mod. `implementation` works on both Loom
+	// (Fabric) and the NeoForge project (unlike modCompileOnly, which is Loom-only).
+	if (prop("dep.emotecraft") != "unknown") {
+		String emotecraft = MossyUtils.substringBefore(prop("dep.emotecraft"), "+")
+		List<String> ver = emotecraft.tokenize(".")
+		int major = ver[0] as int
+		int minor = ver.size() > 1 ? (ver[1].replaceAll("[^0-9].*", "") as int) : 0
+		// 2.4.x ships the interfaces in emotesExecutor; 2.5.0+ in archCommon.
+		String mainModule = (major == 2 && minor <= 4) ? "emotesExecutor" : "archCommon"
+
+		// Exclusions shared by every Emotecraft artifact below:
+		Closure emoteExcludes = {
+			// NoteBlockLib: unused transitive with no repo here.
+			exclude group: "net.raphimc"
+			// Fabric-flavored transitive drags fabric-loader, which the NeoForge project can't
+			// resolve; the installed mod provides the loader at runtime.
+			exclude group: "net.fabricmc", module: "fabric-loader"
+			// PlayerAnimationLibCore (transitive) REQUIRES newer gson/slf4j/netty/joml than
+			// NeoForge's minecraft-dependencies pins with {strictly} (e.g. PAL wants gson 2.14.0
+			// vs NeoForge strict 2.13.2) -> unresolvable conflict, "Could not resolve gson
+			// {strictly ...}". These libs are provided by Minecraft/NeoForge at runtime, so drop
+			// them from the mod subtree and let the platform version win.
+			exclude group: "com.google.code.gson"
+			exclude group: "org.slf4j"
+			exclude group: "io.netty"
+			exclude group: "org.joml"
+		}
+
+		implementation("io.github.kosmx.emotes:emotesAPI:${emotecraft}", emoteExcludes)
+		implementation("io.github.kosmx.emotes:${mainModule}:${emotecraft}", emoteExcludes)
+	}
+
+}
+
+String prop(String key) {
+	return findProperty(key).toString()
+}

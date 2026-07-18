@@ -1,0 +1,29 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "${mod_description}",
+	"${mod_id}.modmenu.title": "§l${mod_name}",
+
+	"${mod_id}.modmenu.category.general.name": "§lGeneral",
+
+	"${mod_id}.modmenu.group.main.name": "§lMain",
+	"${mod_id}.modmenu.group.main.description": "Main settings",
+
+	"${mod_id}.modmenu.option.sync_emote.name": "Sync emote",
+	"${mod_id}.modmenu.option.sync_emote.description": "Looping emotes join at the player's current frame instead of restarting. Non-looping ones always start from the beginning.",
+
+	"${mod_id}.modmenu.option.borrow_sound.name": "Borrow sound",
+	"${mod_id}.modmenu.option.borrow_sound.description": "Borrowed emotes keep their sound. Hold the Reverse key to flip this for one emote.",
+
+	"${mod_id}.modmenu.option.show_actionbar_message.name": "Action bar message",
+	"${mod_id}.modmenu.option.show_actionbar_message.description": "Show a message above the hotbar when you borrow an emote.",
+
+	"${mod_id}.modmenu.option.borrow_duration.name": "Hold time",
+	"${mod_id}.modmenu.option.borrow_duration.description": "How long a borrowed emote waits for you to leave crouch before it plays.",
+	"${mod_id}.modmenu.option.borrow_duration.format": "%s sec",
+
+	"${mod_id}.borrow.success": "Borrowed %s's emote",
+	"${mod_id}.borrow.no_emote": "%s isn't playing an emote",
+
+	"key.category.${mod_id}.keybinding": "${mod_name}",
+	"${mod_id}.keybinding.borrow": "Borrow emote",
+	"${mod_id}.keybinding.reverse_sound": "Reverse sound"
+}

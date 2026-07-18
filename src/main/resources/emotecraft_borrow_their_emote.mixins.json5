@@ -1,0 +1,20 @@
+{
+	"required": true,
+	"package": "me.zipestudio.ebte.mixin",
+	"refmap": "${mod_id}.refmap.json",
+	"compatibilityLevel": "JAVA_${java}",
+	"mixins": [
+	],
+	"client": [
+		//? if >=1.21.11 {
+		"AnimationControllerMixin",
+		//?}
+		"IHateForgeMixin",
+		"keybinding.KeybindingMixin",
+		"keybinding.KeyBindsScreenScreenMixin",
+		"keybinding.KeyboardHandlerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

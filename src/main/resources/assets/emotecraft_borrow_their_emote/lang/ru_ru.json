@@ -1,0 +1,29 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "Клиентский аддон для Emotecraft, который позволяет позаимствовать эмоцию другого игрока и проиграть её вместе с ним.",
+	"${mod_id}.modmenu.title": "§l${mod_name}",
+
+	"${mod_id}.modmenu.category.general.name": "§lОсновное",
+
+	"${mod_id}.modmenu.group.main.name": "§lГлавное",
+	"${mod_id}.modmenu.group.main.description": "Главные настройки",
+
+	"${mod_id}.modmenu.option.sync_emote.name": "Синхронизировать эмоцию",
+	"${mod_id}.modmenu.option.sync_emote.description": "Цикличная эмоция начнётся с текущего кадра игрока, а не с начала. Не цикличные всегда с начала.",
+
+	"${mod_id}.modmenu.option.borrow_sound.name": "Звук эмоции",
+	"${mod_id}.modmenu.option.borrow_sound.description": "Одолженная эмоция сохраняет свой звук. Зажми клавишу реверса, чтобы разово поменять это на противоположное.",
+
+	"${mod_id}.modmenu.option.show_actionbar_message.name": "Сообщение над хотбаром",
+	"${mod_id}.modmenu.option.show_actionbar_message.description": "Показывать сообщение над хотбаром, когда эмоция одолжена.",
+
+	"${mod_id}.modmenu.option.borrow_duration.name": "Время удержания",
+	"${mod_id}.modmenu.option.borrow_duration.description": "Сколько эмоция ждёт, пока ты выйдешь из приседа, прежде чем проиграться.",
+	"${mod_id}.modmenu.option.borrow_duration.format": "%s сек",
+
+	"${mod_id}.borrow.success": "Одолжена эмоция у %s",
+	"${mod_id}.borrow.no_emote": "%s сейчас не использует эмоцию",
+
+	"key.category.${mod_id}.keybinding": "${mod_name}",
+	"${mod_id}.keybinding.borrow": "Одолжить эмоцию",
+	"${mod_id}.keybinding.reverse_sound": "Реверс звука"
+}
