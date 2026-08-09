@@ -22,6 +22,8 @@ import static net.lopymine.mossylib.utils.CodecUtils.option;
 public class LeafyConfig {
 
 	public static final Codec<LeafyConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			option("mod_enabled", true, Codec.BOOL, LeafyConfig::isModEnabled),
+			option("empty_hand_only", true, Codec.BOOL, LeafyConfig::isEmptyHandOnly),
 			option("sync_emote", true, Codec.BOOL, LeafyConfig::isSyncEmote),
 			option("borrow_sound", false, Codec.BOOL, LeafyConfig::isBorrowSound),
 			option("show_notification", true, Codec.BOOL, LeafyConfig::isShowNotification),
@@ -33,6 +35,8 @@ public class LeafyConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(EBTE.MOD_NAME + "/Config");
 	private static LeafyConfig INSTANCE;
 
+	private boolean modEnabled;
+	private boolean emptyHandOnly;
 	private boolean syncEmote;
 	private boolean borrowSound;
 	private boolean showNotification;

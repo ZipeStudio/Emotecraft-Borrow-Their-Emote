@@ -53,6 +53,8 @@ Look at a player who is playing an emote and press `[Shift + RMB]` — you borro
 !["Configurable" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZSconfigurable.png?raw=true)
 
 - In-game config screen (**YACL** + **Mod Menu**)
+- **Enable mod** — turn borrowing off entirely without uninstalling
+- **Only with empty hands** — borrow only when both your hands are empty, so the mod never swallows an item interaction that a server or minigame binds to the same click *(on by default)*
 - **Sync emote** — looping emotes join at the player's current frame instead of restarting from the beginning
 - **Borrow sound** — borrowed emotes keep their sound and sfx
 - **Action bar message** — toggle the notification shown above the hotbar when you borrow an emote

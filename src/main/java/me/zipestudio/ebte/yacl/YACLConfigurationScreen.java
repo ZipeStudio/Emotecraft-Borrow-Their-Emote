@@ -28,6 +28,12 @@ public final class YACLConfigurationScreen {
 
 	private static SimpleGroup getMainGroup(LeafyConfig defConfig, LeafyConfig config) {
 		return SimpleGroup.startBuilder("main").options(
+				SimpleOption.<Boolean>startBuilder("modEnabled")
+						.withBinding(defConfig.isModEnabled(), config::isModEnabled, config::setModEnabled, true)
+						.withController(),
+				SimpleOption.<Boolean>startBuilder("empty_hand_only")
+						.withBinding(defConfig.isEmptyHandOnly(), config::isEmptyHandOnly, config::setEmptyHandOnly, true)
+						.withController(),
 				SimpleOption.<Boolean>startBuilder("sync_emote")
 						.withBinding(defConfig.isSyncEmote(), config::isSyncEmote, config::setSyncEmote, true)
 						.withController(),

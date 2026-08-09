@@ -66,6 +66,10 @@ public final class EmoteBorrower {
     }
 
     private static void clientTick(Minecraft client) {
+        if (!LeafyConfig.getInstance().isModEnabled()) {
+            clearPending();
+            return;
+        }
         handleBorrowRequest(client);
         tickPending(client);
     }
@@ -93,9 +97,17 @@ public final class EmoteBorrower {
     @Nullable
     private static Player getBorrowTarget() {
 
+        LeafyConfig config = LeafyConfig.getInstance();
+        if (!config.isModEnabled()) {
+            return null;
+        }
+
         Minecraft client = Minecraft.getInstance();
         Player self = client.player;
         if (self == null || client.level == null || self.isDeadOrDying()) {
+            return null;
+        }
+        if (config.isEmptyHandOnly() && !self.getMainHandItem().isEmpty()) {
             return null;
         }
         if (!(client.hitResult instanceof EntityHitResult hitResult)) {

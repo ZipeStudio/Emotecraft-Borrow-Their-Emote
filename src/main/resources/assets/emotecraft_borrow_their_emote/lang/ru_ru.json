@@ -7,6 +7,12 @@
 	"${mod_id}.modmenu.group.main.name": "§lГлавное",
 	"${mod_id}.modmenu.group.main.description": "Главные настройки",
 
+	"${mod_id}.modmenu.option.mod_enabled.name": "Включить мод",
+	"${mod_id}.modmenu.option.mod_enabled.description": "Полностью отключает заимствование. Клавиши остаются привязаны, но ничего не делают.",
+
+	"${mod_id}.modmenu.option.empty_hand_only.name": "Только с пустыми руками",
+	"${mod_id}.modmenu.option.empty_hand_only.description": "Одалживать, только когда обе руки пустые. Так мод не перехватывает взаимодействие с предметами.",
+
 	"${mod_id}.modmenu.option.sync_emote.name": "Синхронизировать эмоцию",
 	"${mod_id}.modmenu.option.sync_emote.description": "Цикличная эмоция начнётся с текущего кадра игрока, а не с начала. Не цикличные всегда с начала.",
 
