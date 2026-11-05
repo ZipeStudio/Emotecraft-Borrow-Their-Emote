@@ -64,6 +64,12 @@ dependencies {
 
 }
 
+afterEvaluate {
+    publishMods {
+        displayName = displayName.get().replace(" (EBTE)", "")
+    }
+}
+
 String prop(String key) {
     return findProperty(key).toString()
 }
