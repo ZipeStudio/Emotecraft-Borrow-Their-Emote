@@ -9,7 +9,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.*;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
+//? if <26.3 {
+/*import org.lwjgl.glfw.GLFW;
+*///?}
 
 @Getter
 @Setter
@@ -20,7 +22,7 @@ public class KeybindingCombination {
 	private static final Component COLLECT_TEXT = Component.literal(" + ");
 
 	public static final Codec<Key> KEY_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			Codec.INT.optionalFieldOf("id").xmap((o) -> o.orElse(-1), Optional::ofNullable).forGetter(Key::getValue),
+			Codec.INT.optionalFieldOf("id").xmap((o) -> o.orElse(InputConstants.UNKNOWN.getValue()), Optional::ofNullable).forGetter(Key::getValue),
 			InputType.CODEC.optionalFieldOf("type").xmap((o) -> o.orElse(InputType.of(InputConstants.UNKNOWN.getType())), Optional::ofNullable).forGetter((key) -> InputType.of(key.getType()))
 	).apply(instance, (id, type) -> type.toVanillaType().getOrCreate(id)));
 
@@ -30,7 +32,19 @@ public class KeybindingCombination {
 	).apply(instance, KeybindingCombination::new));
 
 	private static final Set<Integer> ATTRIBUTE_KEY_IDS = Set.of(
-			GLFW.GLFW_KEY_LEFT_ALT,
+			//? if >=26.3 {
+			InputConstants.KEY_LALT,
+			InputConstants.KEY_LCONTROL,
+			InputConstants.KEY_LSHIFT,
+			InputConstants.KEY_LGUI,
+			InputConstants.KEY_RALT,
+			InputConstants.KEY_RCONTROL,
+			InputConstants.KEY_RSHIFT,
+			InputConstants.KEY_RGUI,
+			InputConstants.KEY_TAB,
+			InputConstants.KEY_CAPSLOCK
+			//?} else {
+			/*GLFW.GLFW_KEY_LEFT_ALT,
 			GLFW.GLFW_KEY_LEFT_CONTROL,
 			GLFW.GLFW_KEY_LEFT_SHIFT,
 			GLFW.GLFW_KEY_LEFT_SUPER,
@@ -40,6 +54,7 @@ public class KeybindingCombination {
 			GLFW.GLFW_KEY_RIGHT_SUPER,
 			GLFW.GLFW_KEY_TAB,
 			GLFW.GLFW_KEY_CAPS_LOCK
+			*///?}
 	);
 
 	@Nullable
@@ -56,7 +71,7 @@ public class KeybindingCombination {
 	}
 
 	public void setAttributeKey(@Nullable Key attributeKey) {
-		if (attributeKey != null && attributeKey.getValue() == -1) {
+		if (attributeKey != null && attributeKey.getValue() == InputConstants.UNKNOWN.getValue()) {
 			this.attributeKey = null;
 			return;
 		}
@@ -64,7 +79,7 @@ public class KeybindingCombination {
 	}
 
 	public void setKey(@Nullable Key key) {
-		if (key != null && key.getValue() == -1) {
+		if (key != null && key.getValue() == InputConstants.UNKNOWN.getValue()) {
 			this.key = null;
 			return;
 		}
@@ -76,7 +91,7 @@ public class KeybindingCombination {
 	}
 
 	public List<Key> getKeys() {
-		return Stream.of(this.getKey(), this.getAttributeKey()).filter(Objects::nonNull).filter((key) -> key.getValue() != -1).toList();
+		return Stream.of(this.getKey(), this.getAttributeKey()).filter(Objects::nonNull).filter((key) -> key.getValue() != InputConstants.UNKNOWN.getValue()).toList();
 	}
 
 	public Component getLabel(boolean finished) {

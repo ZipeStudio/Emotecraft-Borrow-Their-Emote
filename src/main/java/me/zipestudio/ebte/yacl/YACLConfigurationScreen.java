@@ -28,7 +28,7 @@ public final class YACLConfigurationScreen {
 
 	private static SimpleGroup getMainGroup(LeafyConfig defConfig, LeafyConfig config) {
 		return SimpleGroup.startBuilder("main").options(
-				SimpleOption.<Boolean>startBuilder("modEnabled")
+				SimpleOption.<Boolean>startBuilder("mod_enabled")
 						.withBinding(defConfig.isModEnabled(), config::isModEnabled, config::setModEnabled, true)
 						.withController(),
 				SimpleOption.<Boolean>startBuilder("empty_hand_only")

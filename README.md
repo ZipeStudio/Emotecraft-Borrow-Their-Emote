@@ -25,7 +25,7 @@
           <a href="https://t.me/zipeleaf">
             <img src="https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/telegram.png?raw=true" title="Telegram channel">
           </a>
-          <a href="https://ko-fi.com/zipestudio/tip">
+          <a href="https://www.patreon.com/cw/ZipeStudio/membership">
             <img src="https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/support.png?raw=true" title="Support me (thx)">
           </a>
         </div>
@@ -76,9 +76,9 @@ Both keys are rebindable in **Options → Controls**, including other mouse butt
 
 !["Support" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZSsupport.png?raw=true)
 
-### Want to support the mod and its authors? Just tell everyone about it!
+### Want to support mod and authors? Just tell everyone about this mod!
 
-Yeah, you got it right. Simply spreading the word is a great way to support the mod and its creators. The more people know about this mod, the more downloads it gets, and more downloads mean better motivation for the authors and more income from the site — literally a free donation. **Just remember, advertising should never be intrusive or annoying!**
+Yeah, you got it right. Just by advertising, you will support the mod and the creators well. The more people will know about this mod, the more downloads it will have, more downloads will give good motivation to authors and increase income from the site (literally free donation). **Remember, advertising must not be intrusive and annoiyng!**
 
 ### What you can do?
 - Make a video review / advertisement
@@ -90,6 +90,6 @@ Yeah, you got it right. Simply spreading the word is a great way to support the 
 
 !["Licensing" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZSlicensing.png?raw=true)
 
-The license terms for this project are defined in the [LICENSE](https://github.com/ZipeStudio/emotecraft-borrow-their-emote/blob/master/LICENSE) file in the source repository. That file always takes precedence over any license shown anywhere else.
+The license terms for this project are defined in the [LICENSE](https://github.com/ZipeStudio/emotecraft-borrow-their-emote/blob/master/LICENSE.md) file in this repository. That file always takes precedence over any license shown anywhere else.
 
-### [View the source code](https://github.com/ZipeStudio/emotecraft-borrow-their-emote)
+[**See the original mod repository**](https://github.com/ZipeStudio/emotecraft-borrow-their-emote)

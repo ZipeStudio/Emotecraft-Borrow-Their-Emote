@@ -4,7 +4,9 @@ import lombok.Getter;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
+//? if <26.3 {
+/*import org.lwjgl.glfw.GLFW;
+*///?}
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.InputConstants.Key;
 import com.mojang.blaze3d.platform.InputConstants.Type;
@@ -25,7 +27,7 @@ public class EBTEKeybinding extends KeyMapping {
 	private boolean canStartBinding = true;
 
 	public EBTEKeybinding(String translationKey, KeybindingCombination defaultCombination, KeybindingCombination combination, BiConsumer<LeafyConfig, KeybindingCombination> saver) {
-		super(translationKey, -1, EBTEKeybindingManager.CATEGORY);
+		super(translationKey, InputConstants.UNKNOWN.getValue(), EBTEKeybindingManager.CATEGORY);
 		this.defaultCombination = defaultCombination;
 		this.saver              = saver;
 		this.combination.setAttributeKey(combination.getAttributeKey());
@@ -33,7 +35,11 @@ public class EBTEKeybinding extends KeyMapping {
 	}
 
 	public static Key keysym(int code) {
-		return Type.KEYSYM.getOrCreate(code);
+		//? if >=26.3 {
+		return Type.KEYBOARD.getOrCreate(code);
+		//?} else {
+		/*return Type.KEYSYM.getOrCreate(code);
+		*///?}
 	}
 
 	public static Key mouse(int button) {
@@ -54,7 +60,11 @@ public class EBTEKeybinding extends KeyMapping {
 		if (!this.isBinding()) {
 			return true;
 		}
-		if (key.getValue() == GLFW.GLFW_KEY_ESCAPE) {
+		//? if >=26.3 {
+		if (key.getValue() == InputConstants.KEY_ESCAPE) {
+		//?} else {
+		/*if (key.getValue() == GLFW.GLFW_KEY_ESCAPE) {
+		*///?}
 			this.combination.setKey(null);
 			this.combination.setAttributeKey(null);
 			return true;
@@ -106,18 +116,25 @@ public class EBTEKeybinding extends KeyMapping {
 	}
 
 	private static boolean isKeyDown(Key key) {
-		if (key.getType() == Type.KEYSYM) {
+		//? if >=26.3 {
+		if (key.getType() == Type.KEYBOARD) {
+			return InputConstants.isKeyDown(key.getValue());
+		}
+		return (org.lwjgl.sdl.SDLMouse.SDL_GetMouseState((java.nio.FloatBuffer) null, null) & (1 << (key.getValue() - 1))) != 0;
+		//?} else {
+		/*if (key.getType() == Type.KEYSYM) {
 			//? if <=1.21.8 {
-			/*return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), key.getValue());
-			*///?} else {
+			/^return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), key.getValue());
+			^///?} else {
 			return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), key.getValue());
 			//?}
 		}
 		//? if <=1.21.8 {
-		/*return GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), key.getValue()) == GLFW.GLFW_PRESS;
-		*///?} else {
+		/^return GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), key.getValue()) == GLFW.GLFW_PRESS;
+		^///?} else {
 		return GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), key.getValue()) == GLFW.GLFW_PRESS;
 		//?}
+		*///?}
 	}
 
 	public boolean matchesTrigger(Key key, boolean pressed) {

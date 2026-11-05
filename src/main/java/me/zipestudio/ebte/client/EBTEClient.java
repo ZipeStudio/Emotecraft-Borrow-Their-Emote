@@ -6,7 +6,6 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import me.zipestudio.ebte.EBTE;
-import me.zipestudio.ebte.borrow.EmoteBorrower;
 import me.zipestudio.ebte.client.keybinding.EBTEKeybindingManager;
 
 public class EBTEClient {
@@ -15,7 +14,6 @@ public class EBTEClient {
 
 	public static void onInitializeClient() {
 		EBTEKeybindingManager.register();
-		EmoteBorrower.register();
 		LOGGER.info("{} Client Initialized", EBTE.MOD_NAME);
 	}
 
@@ -23,23 +21,23 @@ public class EBTEClient {
 		Minecraft client = Minecraft.getInstance();
 		if (client.player == null) return;
 		//? if >=26.1 {
-		/*client.player.sendOverlayMessage(
+		client.player.sendOverlayMessage(
 			EBTE.text(key, args)
 		);
-		*///?} else {
-		client.player.displayClientMessage(
+		//?} else {
+		/*client.player.displayClientMessage(
 				EBTE.text(key, args), true
 		);
-		//?}
+		*///?}
 	}
 
 	@Nullable
 	public static Screen getCurrentScreen(Minecraft client) {
 		//? if >=26.2 {
-		/*return client.gui.screen();
-		 *///?} else {
-		return client.screen;
-		//?}
+		return client.gui.screen();
+		 //?} else {
+		/*return client.screen;
+		*///?}
 	}
 
 }

@@ -27,16 +27,6 @@ import me.zipestudio.ebte.config.LeafyConfig;
 import java.util.UUID;
 import org.jetbrains.annotations.Nullable;
 
-//? if fabric {
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-//?} elif neoforge {
-/*import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.common.NeoForge;
-*///?} elif forge {
-/*import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-*///?}
-
 public final class EmoteBorrower {
 
     private static UUID PENDING_TARGET_UUID;
@@ -51,21 +41,7 @@ public final class EmoteBorrower {
 
     private static boolean BORROW_WAS_DOWN;
 
-    public static void register() {
-        //? if fabric {
-        ClientTickEvents.END_CLIENT_TICK.register(EmoteBorrower::clientTick);
-        //?} elif neoforge {
-		/*NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, (event) -> clientTick(Minecraft.getInstance()));
-		*///?} elif forge {
-		/*MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent event) -> {
-			if (event.phase == TickEvent.Phase.END) {
-				clientTick(Minecraft.getInstance());
-			}
-		});
-		*///?}
-    }
-
-    private static void clientTick(Minecraft client) {
+    public static void clientTick(Minecraft client) {
         if (!LeafyConfig.getInstance().isModEnabled()) {
             clearPending();
             return;
@@ -246,11 +222,12 @@ public final class EmoteBorrower {
     private static Animation muteAnimation(Animation animation) {
         com.zigythebird.playeranimcore.animation.ExtraAnimationData data = animation.data();
         Animation.Keyframes keyFrames = animation.keyFrames();
-        if (!data.has("song") && keyFrames.sounds().length == 0) {
+        if (!data.has("song") && !data.has("sound") && keyFrames.sounds().length == 0) {
             return animation;
         }
         java.util.Map<String, Object> strippedData = new java.util.HashMap<>(data.data());
         strippedData.remove("song");
+        strippedData.remove("sound");
         com.zigythebird.playeranimcore.animation.ExtraAnimationData silentData =
                 new com.zigythebird.playeranimcore.animation.ExtraAnimationData(strippedData);
         Animation.Keyframes silentKeyFrames = new Animation.Keyframes(

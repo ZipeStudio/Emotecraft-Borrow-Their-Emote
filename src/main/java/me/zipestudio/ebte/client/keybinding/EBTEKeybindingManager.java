@@ -2,23 +2,15 @@ package me.zipestudio.ebte.client.keybinding;
 
 import lombok.Getter;
 import net.minecraft.client.KeyMapping;
-import org.lwjgl.glfw.GLFW;
+//? if <26.3 {
+/*import org.lwjgl.glfw.GLFW;
+*///?}
 import com.mojang.blaze3d.platform.InputConstants;
 import me.zipestudio.ebte.EBTE;
 import me.zipestudio.ebte.client.EBTEClient;
 import me.zipestudio.ebte.config.LeafyConfig;
 
-//? if fabric && >=26.1 {
-/*import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
-*///?} elif fabric {
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-//?} elif neoforge {
-/*import net.neoforged.fml.ModLoadingContext;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-*///?} elif forge {
-/*import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-*///?}
+import java.util.List;
 
 public class EBTEKeybindingManager {
 
@@ -29,8 +21,13 @@ public class EBTEKeybindingManager {
 	*///?}
 
 	public static final KeybindingCombination DEFAULT_BORROW_COMBINATION = new KeybindingCombination(
-			EBTEKeybinding.keysym(GLFW.GLFW_KEY_LEFT_SHIFT),
+			//? if >=26.3 {
+			EBTEKeybinding.keysym(InputConstants.KEY_LSHIFT),
+			EBTEKeybinding.mouse(InputConstants.MOUSE_BUTTON_RIGHT)
+			//?} else {
+			/*EBTEKeybinding.keysym(GLFW.GLFW_KEY_LEFT_SHIFT),
 			EBTEKeybinding.mouse(GLFW.GLFW_MOUSE_BUTTON_2)
+			*///?}
 	);
 
 	@Getter
@@ -58,40 +55,23 @@ public class EBTEKeybindingManager {
 		);
 		reverseSoundKeybinding = new KeyMapping(
 				EBTE.MOD_ID + ".keybinding.reverse_sound",
-				InputConstants.Type.KEYSYM,
+				//? if >=26.3 {
+				InputConstants.Type.KEYBOARD,
+				InputConstants.KEY_LCONTROL,
+				//?} else {
+				/*InputConstants.Type.KEYSYM,
 				GLFW.GLFW_KEY_LEFT_CONTROL,
+				*///?}
 				CATEGORY
 		);
-
-		registerKeybindings(borrowKeybinding, reverseSoundKeybinding);
 	}
 
 	public static boolean isBorrowTrigger(InputConstants.Key key, boolean pressed) {
 		return borrowKeybinding != null && borrowKeybinding.matchesTrigger(key, pressed);
 	}
 
-	private static void registerKeybindings(KeyMapping... keyMappings) {
-		//? if fabric && >=26.1 {
-		/*for (KeyMapping keyMapping : keyMappings) {
-			KeyMappingHelper.registerKeyMapping(keyMapping);
-		}
-		*///?} elif fabric {
-		for (KeyMapping keyMapping : keyMappings) {
-			KeyBindingHelper.registerKeyBinding(keyMapping);
-		}
-		//?} elif neoforge {
-		/*ModLoadingContext.get().getActiveContainer().getEventBus().addListener(RegisterKeyMappingsEvent.class, (event) -> {
-			for (KeyMapping keyMapping : keyMappings) {
-				event.register(keyMapping);
-			}
-		});
-		*///?} elif forge {
-		/*FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterKeyMappingsEvent event) -> {
-			for (KeyMapping keyMapping : keyMappings) {
-				event.register(keyMapping);
-			}
-		});
-		*///?}
+	public static List<KeyMapping> getKeyMappings() {
+		return List.of(borrowKeybinding, reverseSoundKeybinding);
 	}
 
 }
